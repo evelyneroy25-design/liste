@@ -6,75 +6,652 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#fbfbfd">
+
 <title>Liste</title>
+
 <link rel="apple-touch-icon" href="Image%20ChatGPT%2028%20sept.%202026,%2014_12_55.png">
-<link rel="icon" type="image/png" href="Image%20ChatGPT%2028%20sept.%202026,%2014_12_55.png">  
+<link rel="icon" type="image/png" href="Image%20ChatGPT%2028%20sept.%202026,%2014_12_55.png">
+
 <style>
-html,body{margin:0;padding:0;background:#f3f5f8}
-body{min-height:100vh}
-#listeApp{max-width:760px;margin:0 auto}
+html,body{
+  margin:0;
+  padding:0;
+  background:#f3f5f8;
+}
+
+body{
+  min-height:100vh;
+}
+
+#listeApp{
+  max-width:760px;
+  margin:0 auto;
+}
+
 @media(max-width:600px){
-  #listeApp>div{border-radius:0!important;min-height:100vh!important;padding:16px 13px 30px!important}
+  #listeApp>div{
+    border-radius:0!important;
+    min-height:100vh!important;
+    padding:16px 13px 30px!important;
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div id="listeApp"></div>
+
 <script>
 (function(){
+
 const K="liste-evelyne-ionos-v1";
+
 const seed=[
- {n:"Voyages",e:"🧳",c:"#d8edff",subs:[
-  {n:"Tous mes voyages",items:["1962 — Bormes-les-Mimosas","1966 — Mandelieu","1967 — Saint-Cyr-sur-Mer","1968 — Saint-Cyr-sur-Mer","1969 — Mandelieu","1970 — Valence (camping)","1971 — Sanary","1972 — Sanary","1973 — Paris puis Dieppe","1974 — Saint-Raphaël (camping du Dramont)","1975 — Saint-Raphaël (camping du Dramont)","1976 — Saint-Raphaël (camping du Dramont)","1977 — Antibes (location – père malade)","1978 — Suisse (chez Claudette)","1979 — Argelès","1980 — Biarritz puis Sanary","1981 — Narbonne (camping avec Catherine Poncet)","1982 — Saint-Cyr-sur-Mer (villa louée)","1983 — Giens (camping Copain)","1984 — Giens / Morzine","1985 — Giens / Morzine","1986 — Pas de vacances / Courchevel","1987 — Corse (voyage de noces)","1988 — Gruissan, Saint-Tropez, Villard-de-Lans / Morzine","1989 — Giens","1990 — Sanary, Six-Fours","1991 — Giens / Villard-de-Lans","1992 — Le Lavandou","1993 — Lavandou + Annecy","1994 — Fréjus, Saint-Paul-en-Forêt / Tunisie","1995 — Espagne / Martinique","1996 — Grau-du-Roi + Verdon / Guadeloupe","1997 — Autriche + Giens / Martinique","1998 — La Palmyre, La Rochelle, Cognac / Martinique","1999 — Giens + Praloup / Saint-Gervais","2000 — Giens","2001 — Giens","2002 — Giens + Ardèche / Megève","2003 — Giens + Sarlat","2004 — Giens + Poitiers et Bretagne / Karelis","2005 — Giens / Floride","2006 — Giens + Cambridge / Martinique","2007 — Giens + Canada / Lanzarote","2008 — Giens + Majorque / Martinique","2009 — Écosse + Giens / Val Cenis","2010 — Giens + Bordeaux / Fuerteventura","2011 — Ibiza + Suisse / Grande Canarie, Ténérife, Chamrousse","2012 — Venise + Bretagne / Marrakech","2013 — Hollande / Chamrousse + Ténérife","2014 — Sarlat / Fuerteventura","2015 — Irlande / La Plagne Montalbert","2016 — Salou / Les Arcs","2017 — Alsace / ski","2018 — Autriche / La Giettaz + Faro","2019 — Lisbonne, MSC Divina, Giens, Sicile / Les Arcs + Lisbonne","2020 — Giens / Val Fréjus","2021 — Giens + Majorque / pas de vacances","2022 — Giens, MSC Opera, Corse du Nord / Saint-Gervais, Lanzarote, Ardèche","2023 — MSC Magnifica, Giens, Corse du Sud / La Plagne Montalbert","2024 — Andalousie, Giens, Crète / La Giettaz + Fuerteventura","2025 — Giens + MSC Splendida / Hurghada + Les Arcs","2026 — Londres, Norvège, Giens, Alicante / Grande Canarie"].map(x=>({t:x,d:false}))},
-  {n:"Prochains voyages",items:[]},{n:"Idées destinations",items:[]}]},
- {n:"Maison",e:"🏡",c:"#dcf5e3",subs:[{n:"Brindas",items:[]},{n:"Giens",items:[]},{n:"Grigny",items:[]}]},
- {n:"Courses",e:"🛒",c:"#ffe2e9",subs:[{n:"Alimentaire",items:[]},{n:"Maison",items:[]},{n:"Cave",items:[]}]},
- {n:"À faire",e:"📋",c:"#fff0b9",subs:[{n:"To do liste",items:[]},{n:"Administratif",items:[]},{n:"Projets",items:[]}]},
- {n:"Famille",e:"👨‍👩‍👧‍👦",c:"#e7ddff",subs:[{n:"Arthur",items:[]},{n:"Emy",items:[]},{n:"Famille",items:[]}]},
- {n:"Culture & loisirs",e:"📚",c:"#d9edff",subs:[{n:"Livres",items:[]},{n:"Films / séries",items:[]},{n:"Sorties",items:[]}]},
- {n:"Cave",e:"🍷",c:"#def3d9",subs:[{n:"Vins à acheter",items:[]},{n:"Dégustations",items:[]},{n:"Fournisseurs",items:[]}]},
- {n:"Cuisine",e:"👩‍🍳",c:"#ffe1ec",subs:[{n:"Recettes",items:[]},{n:"Menus",items:[]},{n:"Idées",items:[]}]},
- {n:"Vacances",e:"🏝️",c:"#d8f3f5",subs:[{n:"À ne pas oublier",items:[]},{n:"Valise",items:[]},{n:"Activités",items:[]}]},
- {n:"Idées en vrac",e:"💡",c:"#ffe8c9",subs:[{n:"Envies",items:[]},{n:"Rencontres",items:[]},{n:"Maximes",items:[]}]}
+
+{
+ n:"Voyages",
+ e:"🧳",
+ c:"#d8edff",
+ subs:[
+  {
+   n:"Tous mes voyages",
+   items:[
+"1962 — Bormes-les-Mimosas",
+"1966 — Mandelieu",
+"1967 — Saint-Cyr-sur-Mer",
+"1968 — Saint-Cyr-sur-Mer",
+"1969 — Mandelieu",
+"1970 — Valence (camping)",
+"1971 — Sanary",
+"1972 — Sanary",
+"1973 — Paris puis Dieppe",
+"1974 — Saint-Raphaël (camping du Dramont)",
+"1975 — Saint-Raphaël (camping du Dramont)",
+"1976 — Saint-Raphaël (camping du Dramont)",
+"1977 — Antibes (location – père malade)",
+"1978 — Suisse (chez Claudette)",
+"1979 — Argelès",
+"1980 — Biarritz puis Sanary",
+"1981 — Narbonne (camping avec Catherine Poncet)",
+"1982 — Saint-Cyr-sur-Mer (villa louée)",
+"1983 — Giens (camping Copain)",
+"1984 — Giens / Morzine",
+"1985 — Giens / Morzine",
+"1986 — Pas de vacances / Courchevel",
+"1987 — Corse (voyage de noces)",
+"1988 — Gruissan, Saint-Tropez, Villard-de-Lans / Morzine",
+"1989 — Giens",
+"1990 — Sanary, Six-Fours",
+"1991 — Giens / Villard-de-Lans",
+"1992 — Le Lavandou",
+"1993 — Lavandou + Annecy",
+"1994 — Fréjus, Saint-Paul-en-Forêt / Tunisie",
+"1995 — Espagne / Martinique",
+"1996 — Grau-du-Roi + Verdon / Guadeloupe",
+"1997 — Autriche + Giens / Martinique",
+"1998 — La Palmyre, La Rochelle, Cognac / Martinique",
+"1999 — Giens + Praloup / Saint-Gervais",
+"2000 — Giens",
+"2001 — Giens",
+"2002 — Giens + Ardèche / Megève",
+"2003 — Giens + Sarlat",
+"2004 — Giens + Poitiers et Bretagne / Karelis",
+"2005 — Giens / Floride",
+"2006 — Giens + Cambridge / Martinique",
+"2007 — Giens + Canada / Lanzarote",
+"2008 — Giens + Majorque / Martinique",
+"2009 — Écosse + Giens / Val Cenis",
+"2010 — Giens + Bordeaux / Fuerteventura",
+"2011 — Ibiza + Suisse / Grande Canarie, Ténérife, Chamrousse",
+"2012 — Venise + Bretagne / Marrakech",
+"2013 — Hollande / Chamrousse + Ténérife",
+"2014 — Sarlat / Fuerteventura",
+"2015 — Irlande / La Plagne Montalbert",
+"2016 — Salou / Les Arcs",
+"2017 — Alsace / ski",
+"2018 — Autriche / La Giettaz + Faro",
+"2019 — Lisbonne, MSC Divina, Giens, Sicile / Les Arcs + Lisbonne",
+"2020 — Giens / Val Fréjus",
+"2021 — Giens + Majorque / pas de vacances",
+"2022 — Giens, MSC Opera, Corse du Nord / Saint-Gervais, Lanzarote, Ardèche",
+"2023 — MSC Magnifica, Giens, Corse du Sud / La Plagne Montalbert",
+"2024 — Andalousie, Giens, Crète / La Giettaz + Fuerteventura",
+"2025 — Giens + MSC Splendida / Hurghada + Les Arcs",
+"2026 — Londres, Norvège, Giens, Alicante / Grande Canarie"
+   ].map(x=>({t:x,d:false}))
+  },
+
+  {n:"Prochains voyages",items:[]},
+  {n:"Idées destinations",items:[]}
+ ]
+},
+
+{
+ n:"Maison",
+ e:"🏡",
+ c:"#dcf5e3",
+ subs:[
+  {n:"Brindas",items:[]},
+  {n:"Giens",items:[]},
+  {n:"Grigny",items:[]}
+ ]
+},
+
+{
+ n:"Courses",
+ e:"🛒",
+ c:"#ffe2e9",
+ subs:[
+  {n:"Alimentaire",items:[]},
+  {n:"Maison",items:[]},
+  {n:"Cave",items:[]}
+ ]
+},
+
+{
+ n:"À faire",
+ e:"📋",
+ c:"#fff0b9",
+ subs:[
+  {n:"To do liste",items:[]},
+  {n:"Administratif",items:[]},
+  {n:"Projets",items:[]}
+ ]
+},
+
+{
+ n:"Famille",
+ e:"👨‍👩‍👧‍👦",
+ c:"#e7ddff",
+ subs:[
+  {n:"Arthur",items:[]},
+  {n:"Emy",items:[]},
+  {n:"Famille",items:[]}
+ ]
+},
+
+{
+ n:"Culture & loisirs",
+ e:"📚",
+ c:"#d9edff",
+ subs:[
+  {n:"Livres",items:[]},
+  {n:"Films / séries",items:[]},
+  {n:"Sorties",items:[]}
+ ]
+},
+
+{
+ n:"Cave",
+ e:"🍷",
+ c:"#def3d9",
+ subs:[
+  {n:"Vins à acheter",items:[]},
+  {n:"Dégustations",items:[]},
+  {n:"Fournisseurs",items:[]}
+ ]
+},
+
+{
+ n:"Cuisine",
+ e:"👩‍🍳",
+ c:"#ffe1ec",
+ subs:[
+  {n:"Recettes",items:[]},
+  {n:"Menus",items:[]},
+  {n:"Idées",items:[]}
+ ]
+},
+
+{
+ n:"Vacances",
+ e:"🏝️",
+ c:"#d8f3f5",
+ subs:[
+  {n:"À ne pas oublier",items:[]},
+  {n:"Valise",items:[]},
+  {n:"Activités",items:[]}
+ ]
+},
+
+{
+ n:"Idées en vrac",
+ e:"💡",
+ c:"#ffe8c9",
+ subs:[
+  {n:"Envies",items:[]},
+  {n:"Rencontres",items:[]},
+  {n:"Maximes",items:[]}
+ ]
+}
+
 ];
-let D; try{D=JSON.parse(localStorage.getItem(K))||seed}catch(e){D=seed}
-let cat=-1,sub=-1;
+
+let D;
+
+try{
+ D=JSON.parse(localStorage.getItem(K))||seed;
+}catch(e){
+ D=seed;
+}
+
+let cat=-1;
+let sub=-1;
+
 const R=document.getElementById("listeApp");
+
 const S="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#13213b;";
 const btn="border:0;cursor:pointer;font-family:inherit;";
-function save(){localStorage.setItem(K,JSON.stringify(D))}
-function h(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+function save(){
+ localStorage.setItem(K,JSON.stringify(D));
+}
+
+function h(s){
+ return String(s).replace(/[&<>"']/g,m=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[m]));
+}
+
 function shell(body){
- R.innerHTML='<div style="'+S+'max-width:760px;margin:0 auto;background:#fbfbfd;border-radius:28px;padding:22px;box-sizing:border-box;min-height:760px;">'+body+'</div>';
+
+ R.innerHTML=
+ '<div style="'+S+
+ 'max-width:760px;margin:0 auto;background:#fbfbfd;border-radius:28px;'+
+ 'padding:22px;box-sizing:border-box;min-height:760px;">'+
+ body+
+ '</div>';
 }
+
+
 function home(){
+
  cat=sub=-1;
- let cards=D.map((x,i)=>'<button onclick="window.LE.openCat('+i+')" style="'+btn+'background:'+x.c+';border-radius:24px;padding:18px;text-align:left;min-height:155px;color:#13213b;position:relative;"><div style="display:flex;gap:14px;"><span style="font-size:42px;">'+x.e+'</span><div><div style="font-size:21px;font-weight:750;margin-bottom:7px;">'+h(x.n)+'</div><div style="font-size:15px;color:#65748c;line-height:1.45;">'+x.subs.slice(0,3).map(y=>h(y.n)).join("<br>")+'</div></div></div><div style="position:absolute;left:74px;bottom:14px;font-size:14px;color:#65748c;">'+x.subs.length+' listes</div><div style="position:absolute;right:16px;bottom:9px;font-size:30px;color:#65748c;">›</div></button>').join("");
- shell('<div style="display:flex;align-items:center;justify-content:space-between;margin:3px 5px 18px;"><span style="font-size:28px;">🍋</span><div style="font-size:38px;font-weight:800;">Liste</div><button onclick="window.LE.backup()" style="'+btn+'width:46px;height:46px;border-radius:50%;font-size:23px;background:#eef1f5;">⚙️</button></div><input id="q" oninput="window.LE.search(this.value)" placeholder="🔎  Rechercher une liste…" style="width:100%;box-sizing:border-box;border:0;background:#eef1f5;border-radius:24px;padding:14px 18px;font-size:17px;margin-bottom:18px;"><div id="cards" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">'+cards+'</div><button onclick="window.LE.addCat()" style="'+btn+'position:sticky;bottom:18px;display:block;margin:22px auto 0;width:68px;height:68px;border-radius:50%;background:#4d88ef;color:white;font-size:40px;box-shadow:0 7px 18px #9bb9e8;">+</button>');
+
+ let cards=D.map((x,i)=>
+
+ '<button onclick="window.LE.openCat('+i+')" '+
+ 'style="'+btn+
+ 'background:'+x.c+';'+
+ 'border-radius:22px;'+
+ 'padding:14px;'+
+ 'text-align:left;'+
+ 'height:130px;'+
+ 'color:#13213b;'+
+ 'position:relative;'+
+ 'overflow:hidden;">'+
+
+ '<div style="display:flex;gap:11px;align-items:flex-start;">'+
+
+ '<span style="font-size:34px;line-height:1.1;">'+x.e+'</span>'+
+
+ '<div style="min-width:0;flex:1;">'+
+
+ '<div style="'+
+ 'font-size:19px;'+
+ 'font-weight:750;'+
+ 'line-height:1.08;'+
+ 'margin-bottom:7px;">'+
+ h(x.n)+
+ '</div>'+
+
+ '<div style="'+
+ 'font-size:14px;'+
+ 'color:#65748c;'+
+ 'line-height:1.28;">'+
+
+ x.subs.slice(0,2).map(y=>h(y.n)).join("<br>")+
+
+ '</div>'+
+ '</div>'+
+ '</div>'+
+
+ '<div style="'+
+ 'position:absolute;'+
+ 'left:59px;'+
+ 'bottom:9px;'+
+ 'font-size:13px;'+
+ 'color:#65748c;">'+
+ x.subs.length+' listes'+
+ '</div>'+
+
+ '<div style="'+
+ 'position:absolute;'+
+ 'right:12px;'+
+ 'bottom:3px;'+
+ 'font-size:28px;'+
+ 'color:#65748c;">›</div>'+
+
+ '</button>'
+
+ ).join("");
+
+
+ shell(
+
+ '<div style="'+
+ 'display:flex;'+
+ 'align-items:center;'+
+ 'justify-content:space-between;'+
+ 'margin:3px 5px 18px;">'+
+
+ '<span style="font-size:28px;">🍋</span>'+
+
+ '<div style="font-size:38px;font-weight:800;">Liste</div>'+
+
+ '<button onclick="window.LE.backup()" '+
+ 'style="'+btn+
+ 'width:46px;'+
+ 'height:46px;'+
+ 'border-radius:50%;'+
+ 'font-size:23px;'+
+ 'background:#eef1f5;">⚙️</button>'+
+
+ '</div>'+
+
+ '<input id="q" '+
+ 'oninput="window.LE.search(this.value)" '+
+ 'placeholder="🔎  Rechercher une liste…" '+
+ 'style="'+
+ 'width:100%;'+
+ 'box-sizing:border-box;'+
+ 'border:0;'+
+ 'background:#eef1f5;'+
+ 'border-radius:24px;'+
+ 'padding:13px 18px;'+
+ 'font-size:17px;'+
+ 'margin-bottom:16px;">'+
+
+ '<div id="cards" style="'+
+ 'display:grid;'+
+ 'grid-template-columns:1fr 1fr;'+
+ 'gap:11px;">'+
+ cards+
+ '</div>'+
+
+ '<button onclick="window.LE.addCat()" '+
+ 'style="'+btn+
+ 'position:sticky;'+
+ 'bottom:18px;'+
+ 'display:block;'+
+ 'margin:20px auto 0;'+
+ 'width:64px;'+
+ 'height:64px;'+
+ 'border-radius:50%;'+
+ 'background:#4d88ef;'+
+ 'color:white;'+
+ 'font-size:38px;'+
+ 'box-shadow:0 7px 18px #9bb9e8;">+</button>'
+
+ );
 }
+
+
 function openCat(i){
- cat=i;sub=-1;let x=D[i];
- let rows=x.subs.map((y,j)=>'<button onclick="window.LE.openSub('+j+')" style="'+btn+'width:100%;background:white;border-radius:18px;padding:17px;margin:8px 0;text-align:left;box-shadow:0 1px 8px #ccd3dd55;color:#13213b;"><b style="font-size:18px;">'+h(y.n)+'</b><span style="float:right;font-size:25px;">›</span><div style="color:#718096;margin-top:4px;">'+y.items.length+' éléments</div></button>').join("");
- shell('<button onclick="window.LE.home()" style="'+btn+'background:none;color:#4d88ef;font-size:17px;padding:5px;">‹ Accueil</button><h2 style="font-size:30px;margin:12px 0 18px;">'+x.e+' '+h(x.n)+'</h2>'+rows+'<button onclick="window.LE.addSub()" style="'+btn+'display:block;margin:22px auto;width:68px;height:68px;border-radius:50%;background:#4d88ef;color:white;font-size:40px;">+</button>');
+
+ cat=i;
+ sub=-1;
+
+ let x=D[i];
+
+ let rows=x.subs.map((y,j)=>
+
+ '<button onclick="window.LE.openSub('+j+')" '+
+ 'style="'+btn+
+ 'width:100%;'+
+ 'background:white;'+
+ 'border-radius:18px;'+
+ 'padding:17px;'+
+ 'margin:8px 0;'+
+ 'text-align:left;'+
+ 'box-shadow:0 1px 8px #ccd3dd55;'+
+ 'color:#13213b;">'+
+
+ '<b style="font-size:18px;">'+h(y.n)+'</b>'+
+
+ '<span style="float:right;font-size:25px;">›</span>'+
+
+ '<div style="color:#718096;margin-top:4px;">'+
+ y.items.length+' éléments'+
+ '</div>'+
+
+ '</button>'
+
+ ).join("");
+
+
+ shell(
+
+ '<button onclick="window.LE.home()" '+
+ 'style="'+btn+
+ 'background:none;'+
+ 'color:#4d88ef;'+
+ 'font-size:17px;'+
+ 'padding:5px;">‹ Accueil</button>'+
+
+ '<h2 style="font-size:30px;margin:12px 0 18px;">'+
+ x.e+' '+h(x.n)+
+ '</h2>'+
+
+ rows+
+
+ '<button onclick="window.LE.addSub()" '+
+ 'style="'+btn+
+ 'display:block;'+
+ 'margin:22px auto;'+
+ 'width:68px;'+
+ 'height:68px;'+
+ 'border-radius:50%;'+
+ 'background:#4d88ef;'+
+ 'color:white;'+
+ 'font-size:40px;">+</button>'
+
+ );
 }
+
+
 function openSub(j){
- sub=j;let x=D[cat],y=x.subs[j];
- let rows=y.items.map((z,k)=>'<div style="display:flex;align-items:center;gap:12px;background:white;border-radius:16px;padding:14px;margin:8px 0;box-shadow:0 1px 7px #ccd3dd44;"><input type="checkbox" '+(z.d?"checked":"")+' onchange="window.LE.toggle('+k+')" style="width:24px;height:24px;"><div style="flex:1;font-size:17px;'+(z.d?"text-decoration:line-through;opacity:.5;":"")+'">'+h(z.t)+'</div><button onclick="window.LE.del('+k+')" style="'+btn+'background:#eef2f7;border-radius:9px;padding:7px;">🗑️</button></div>').join("");
- shell('<button onclick="window.LE.openCat('+cat+')" style="'+btn+'background:none;color:#4d88ef;font-size:17px;padding:5px;">‹ '+h(x.n)+'</button><h2 style="font-size:29px;margin:12px 0 18px;">'+h(y.n)+'</h2>'+(rows||'<div style="text-align:center;color:#718096;padding:55px 10px;">Cette liste est vide.<br>Appuie sur + pour ajouter.</div>')+'<button onclick="window.LE.addItem()" style="'+btn+'display:block;margin:22px auto;width:68px;height:68px;border-radius:50%;background:#4d88ef;color:white;font-size:40px;">+</button>');
+
+ sub=j;
+
+ let x=D[cat];
+ let y=x.subs[j];
+
+ let rows=y.items.map((z,k)=>
+
+ '<div style="'+
+ 'display:flex;'+
+ 'align-items:center;'+
+ 'gap:12px;'+
+ 'background:white;'+
+ 'border-radius:16px;'+
+ 'padding:14px;'+
+ 'margin:8px 0;'+
+ 'box-shadow:0 1px 7px #ccd3dd44;">'+
+
+ '<input type="checkbox" '+
+ (z.d?"checked":"")+
+ ' onchange="window.LE.toggle('+k+')" '+
+ 'style="width:24px;height:24px;">'+
+
+ '<div style="'+
+ 'flex:1;'+
+ 'font-size:17px;'+
+ (z.d?"text-decoration:line-through;opacity:.5;":"")+
+ '">'+
+ h(z.t)+
+ '</div>'+
+
+ '<button onclick="window.LE.del('+k+')" '+
+ 'style="'+btn+
+ 'background:#eef2f7;'+
+ 'border-radius:9px;'+
+ 'padding:7px;">🗑️</button>'+
+
+ '</div>'
+
+ ).join("");
+
+
+ shell(
+
+ '<button onclick="window.LE.openCat('+cat+')" '+
+ 'style="'+btn+
+ 'background:none;'+
+ 'color:#4d88ef;'+
+ 'font-size:17px;'+
+ 'padding:5px;">‹ '+h(x.n)+'</button>'+
+
+ '<h2 style="font-size:29px;margin:12px 0 18px;">'+
+ h(y.n)+
+ '</h2>'+
+
+ (rows||
+ '<div style="'+
+ 'text-align:center;'+
+ 'color:#718096;'+
+ 'padding:55px 10px;">'+
+ 'Cette liste est vide.<br>Appuie sur + pour ajouter.'+
+ '</div>')+
+
+ '<button onclick="window.LE.addItem()" '+
+ 'style="'+btn+
+ 'display:block;'+
+ 'margin:22px auto;'+
+ 'width:68px;'+
+ 'height:68px;'+
+ 'border-radius:50%;'+
+ 'background:#4d88ef;'+
+ 'color:white;'+
+ 'font-size:40px;">+</button>'
+
+ );
 }
-function ask(msg,def=""){return prompt(msg,def)}
+
+
+function ask(msg,def=""){
+ return prompt(msg,def);
+}
+
+
 window.LE={
- home,openCat,openSub,
- addCat(){let n=ask("Nom de la catégorie ?");if(!n)return;let e=ask("Choisis un symbole ou emoji :","✨")||"✨";D.push({n,e,c:["#d8edff","#dcf5e3","#ffe2e9","#fff0b9","#e7ddff","#ffe8c9"][D.length%6],subs:[]});save();home()},
- addSub(){let n=ask("Nom de la sous-liste ?");if(!n)return;D[cat].subs.push({n,items:[]});save();openCat(cat)},
- addItem(){let t=ask("Que veux-tu ajouter ?");if(!t)return;D[cat].subs[sub].items.push({t,d:false});save();openSub(sub)},
- toggle(k){D[cat].subs[sub].items[k].d=!D[cat].subs[sub].items[k].d;save();openSub(sub)},
- del(k){if(confirm("Supprimer cet élément ?")){D[cat].subs[sub].items.splice(k,1);save();openSub(sub)}},
- search(q){q=q.toLowerCase();[...document.getElementById("cards").children].forEach((b,i)=>b.style.display=D[i].n.toLowerCase().includes(q)?"":"none")},
- backup(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,2)],{type:"application/json"}));a.download="sauvegarde-liste.json";a.click()}
+
+ home,
+ openCat,
+ openSub,
+
+ addCat(){
+
+  let n=ask("Nom de la catégorie ?");
+  if(!n)return;
+
+  let e=ask("Choisis un symbole ou emoji :","✨")||"✨";
+
+  D.push({
+   n,
+   e,
+   c:[
+    "#d8edff",
+    "#dcf5e3",
+    "#ffe2e9",
+    "#fff0b9",
+    "#e7ddff",
+    "#ffe8c9"
+   ][D.length%6],
+   subs:[]
+  });
+
+  save();
+  home();
+ },
+
+ addSub(){
+
+  let n=ask("Nom de la sous-liste ?");
+  if(!n)return;
+
+  D[cat].subs.push({
+   n,
+   items:[]
+  });
+
+  save();
+  openCat(cat);
+ },
+
+ addItem(){
+
+  let t=ask("Que veux-tu ajouter ?");
+  if(!t)return;
+
+  D[cat].subs[sub].items.push({
+   t,
+   d:false
+  });
+
+  save();
+  openSub(sub);
+ },
+
+ toggle(k){
+
+  D[cat].subs[sub].items[k].d=
+  !D[cat].subs[sub].items[k].d;
+
+  save();
+  openSub(sub);
+ },
+
+ del(k){
+
+  if(confirm("Supprimer cet élément ?")){
+
+   D[cat].subs[sub].items.splice(k,1);
+
+   save();
+   openSub(sub);
+  }
+ },
+
+ search(q){
+
+  q=q.toLowerCase();
+
+  [...document.getElementById("cards").children]
+  .forEach((b,i)=>
+   b.style.display=
+   D[i].n.toLowerCase().includes(q)?"":"none"
+  );
+ },
+
+ backup(){
+
+  let a=document.createElement("a");
+
+  a.href=URL.createObjectURL(
+   new Blob(
+    [JSON.stringify(D,null,2)],
+    {type:"application/json"}
+   )
+  );
+
+  a.download="sauvegarde-liste.json";
+
+  a.click();
+ }
+
 };
+
+
 home();
+
 })();
 </script>
+
 </body>
 </html>
