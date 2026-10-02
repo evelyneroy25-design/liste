@@ -6,13 +6,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#fbfbfd">
-
 <title>Liste</title>
 
 <link rel="apple-touch-icon" href="Image%20ChatGPT%2028%20sept.%202026,%2014_12_55.png">
 <link rel="icon" type="image/png" href="Image%20ChatGPT%2028%20sept.%202026,%2014_12_55.png">
 
 <style>
+*{box-sizing:border-box}
+
 html,body{
   margin:0;
   padding:0;
@@ -28,12 +29,241 @@ body{
   margin:0 auto;
 }
 
-@media(max-width:600px){
-  #listeApp>div{
-    border-radius:0!important;
-    min-height:100vh!important;
-    padding:16px 13px 30px!important;
-  }
+.page{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:#13213b;
+  background:#fbfbfd;
+  min-height:100vh;
+  padding:16px 13px 30px;
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:3px 5px 18px;
+}
+
+.round,
+.small,
+.back,
+.fab{
+  border:0;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.round{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:#eef1f5;
+  font-size:22px;
+}
+
+.back{
+  background:none;
+  color:#4d88ef;
+  font-size:17px;
+  padding:5px;
+}
+
+.search{
+  width:100%;
+  border:0;
+  background:#eef1f5;
+  border-radius:24px;
+  padding:13px 18px;
+  font-size:17px;
+  margin-bottom:16px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+}
+
+/* GRANDES CARTES */
+
+.swipe{
+  position:relative;
+  overflow:hidden;
+  border-radius:22px;
+  touch-action:pan-y;
+}
+
+.deleteBehind{
+  position:absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  width:90px;
+  border:0;
+  background:#e64b4f;
+  color:white;
+  font-size:13px;
+  font-weight:700;
+}
+
+.card{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:130px;
+  border:0;
+  border-radius:22px;
+  padding:14px;
+  text-align:left;
+  color:#13213b;
+  transition:transform .18s ease;
+}
+
+.cardMain{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+
+.emoji{
+  font-size:32px;
+  line-height:1.05;
+}
+
+.cardText{
+  min-width:0;
+  flex:1;
+}
+
+.cardTitle{
+  font-size:19px;
+  font-weight:750;
+  line-height:1.08;
+  margin-bottom:7px;
+}
+
+.cardSubs{
+  font-size:13px;
+  color:#65748c;
+  line-height:1.22;
+}
+
+.cardCount{
+  position:absolute;
+  left:57px;
+  bottom:8px;
+  font-size:13px;
+  color:#65748c;
+}
+
+.arrow{
+  position:absolute;
+  right:12px;
+  bottom:2px;
+  font-size:28px;
+  color:#65748c;
+}
+
+/* SOUS-LISTES */
+
+.rowSwipe{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  margin:8px 0;
+  touch-action:pan-y;
+}
+
+.row{
+  position:relative;
+  z-index:1;
+  background:white;
+  border-radius:18px;
+  padding:15px 85px 15px 17px;
+  min-height:70px;
+  box-shadow:0 1px 8px #ccd3dd55;
+  transition:transform .18s ease;
+}
+
+.rowTitle{
+  font-size:18px;
+  font-weight:700;
+}
+
+.rowMeta{
+  color:#718096;
+  margin-top:4px;
+  font-size:14px;
+}
+
+.small{
+  background:#eef2f7;
+  border-radius:9px;
+  padding:7px;
+  font-size:15px;
+}
+
+.editSub{
+  position:absolute;
+  right:43px;
+  top:18px;
+}
+
+.go{
+  position:absolute;
+  right:14px;
+  top:18px;
+  font-size:25px;
+  color:#65748c;
+  border:0;
+  background:none;
+}
+
+/* ÉLÉMENTS */
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  background:white;
+  border-radius:16px;
+  padding:12px;
+  margin:8px 0;
+  box-shadow:0 1px 7px #ccd3dd44;
+}
+
+.itemText{
+  flex:1;
+  font-size:17px;
+  word-break:break-word;
+}
+
+.fab{
+  position:sticky;
+  bottom:18px;
+  display:block;
+  margin:20px auto 0;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  background:#4d88ef;
+  color:white;
+  font-size:38px;
+  box-shadow:0 7px 18px #9bb9e8;
+  z-index:10;
+}
+
+.hint{
+  text-align:center;
+  color:#8a96a8;
+  font-size:12px;
+  margin:9px;
+}
+
+.empty{
+  text-align:center;
+  color:#718096;
+  padding:50px 10px;
 }
 </style>
 </head>
@@ -54,74 +284,7 @@ const seed=[
  e:"🧳",
  c:"#d8edff",
  subs:[
-  {
-   n:"Tous mes voyages",
-   items:[
-"1962 — Bormes-les-Mimosas",
-"1966 — Mandelieu",
-"1967 — Saint-Cyr-sur-Mer",
-"1968 — Saint-Cyr-sur-Mer",
-"1969 — Mandelieu",
-"1970 — Valence (camping)",
-"1971 — Sanary",
-"1972 — Sanary",
-"1973 — Paris puis Dieppe",
-"1974 — Saint-Raphaël (camping du Dramont)",
-"1975 — Saint-Raphaël (camping du Dramont)",
-"1976 — Saint-Raphaël (camping du Dramont)",
-"1977 — Antibes (location – père malade)",
-"1978 — Suisse (chez Claudette)",
-"1979 — Argelès",
-"1980 — Biarritz puis Sanary",
-"1981 — Narbonne (camping avec Catherine Poncet)",
-"1982 — Saint-Cyr-sur-Mer (villa louée)",
-"1983 — Giens (camping Copain)",
-"1984 — Giens / Morzine",
-"1985 — Giens / Morzine",
-"1986 — Pas de vacances / Courchevel",
-"1987 — Corse (voyage de noces)",
-"1988 — Gruissan, Saint-Tropez, Villard-de-Lans / Morzine",
-"1989 — Giens",
-"1990 — Sanary, Six-Fours",
-"1991 — Giens / Villard-de-Lans",
-"1992 — Le Lavandou",
-"1993 — Lavandou + Annecy",
-"1994 — Fréjus, Saint-Paul-en-Forêt / Tunisie",
-"1995 — Espagne / Martinique",
-"1996 — Grau-du-Roi + Verdon / Guadeloupe",
-"1997 — Autriche + Giens / Martinique",
-"1998 — La Palmyre, La Rochelle, Cognac / Martinique",
-"1999 — Giens + Praloup / Saint-Gervais",
-"2000 — Giens",
-"2001 — Giens",
-"2002 — Giens + Ardèche / Megève",
-"2003 — Giens + Sarlat",
-"2004 — Giens + Poitiers et Bretagne / Karelis",
-"2005 — Giens / Floride",
-"2006 — Giens + Cambridge / Martinique",
-"2007 — Giens + Canada / Lanzarote",
-"2008 — Giens + Majorque / Martinique",
-"2009 — Écosse + Giens / Val Cenis",
-"2010 — Giens + Bordeaux / Fuerteventura",
-"2011 — Ibiza + Suisse / Grande Canarie, Ténérife, Chamrousse",
-"2012 — Venise + Bretagne / Marrakech",
-"2013 — Hollande / Chamrousse + Ténérife",
-"2014 — Sarlat / Fuerteventura",
-"2015 — Irlande / La Plagne Montalbert",
-"2016 — Salou / Les Arcs",
-"2017 — Alsace / ski",
-"2018 — Autriche / La Giettaz + Faro",
-"2019 — Lisbonne, MSC Divina, Giens, Sicile / Les Arcs + Lisbonne",
-"2020 — Giens / Val Fréjus",
-"2021 — Giens + Majorque / pas de vacances",
-"2022 — Giens, MSC Opera, Corse du Nord / Saint-Gervais, Lanzarote, Ardèche",
-"2023 — MSC Magnifica, Giens, Corse du Sud / La Plagne Montalbert",
-"2024 — Andalousie, Giens, Crète / La Giettaz + Fuerteventura",
-"2025 — Giens + MSC Splendida / Hurghada + Les Arcs",
-"2026 — Londres, Norvège, Giens, Alicante / Grande Canarie"
-   ].map(x=>({t:x,d:false}))
-  },
-
+  {n:"Tous mes voyages",items:[]},
   {n:"Prochains voyages",items:[]},
   {n:"Idées destinations",items:[]}
  ]
@@ -231,9 +394,9 @@ const seed=[
 let D;
 
 try{
- D=JSON.parse(localStorage.getItem(K))||seed;
+  D=JSON.parse(localStorage.getItem(K)) || seed;
 }catch(e){
- D=seed;
+  D=seed;
 }
 
 let cat=-1;
@@ -241,412 +404,633 @@ let sub=-1;
 
 const R=document.getElementById("listeApp");
 
-const S="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#13213b;";
-const btn="border:0;cursor:pointer;font-family:inherit;";
-
 function save(){
- localStorage.setItem(K,JSON.stringify(D));
+  localStorage.setItem(K,JSON.stringify(D));
 }
 
 function h(s){
- return String(s).replace(/[&<>"']/g,m=>({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
- }[m]));
+  return String(s).replace(/[&<>"']/g,m=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[m]));
 }
 
-function shell(body){
-
- R.innerHTML=
- '<div style="'+S+
- 'max-width:760px;margin:0 auto;background:#fbfbfd;border-radius:28px;'+
- 'padding:22px;box-sizing:border-box;min-height:760px;">'+
- body+
- '</div>';
+function ask(message,value=""){
+  return prompt(message,value);
 }
 
+function shell(content){
+  R.innerHTML='<div class="page">'+content+'</div>';
+  setTimeout(activateSwipes,0);
+}
+
+/* =========================
+   ACCUEIL
+========================= */
 
 function home(){
 
- cat=sub=-1;
+  cat=-1;
+  sub=-1;
 
- let cards=D.map((x,i)=>
+  let cards=D.map((x,i)=>`
 
- '<button onclick="window.LE.openCat('+i+')" '+
- 'style="'+btn+
- 'background:'+x.c+';'+
- 'border-radius:22px;'+
- 'padding:14px;'+
- 'text-align:left;'+
- 'height:130px;'+
- 'color:#13213b;'+
- 'position:relative;'+
- 'overflow:hidden;">'+
+    <div class="swipe">
 
- '<div style="display:flex;gap:11px;align-items:flex-start;">'+
+      <button
+        class="deleteBehind"
+        onclick="event.stopPropagation();LE.deleteCat(${i})">
+        Supprimer
+      </button>
 
- '<span style="font-size:34px;line-height:1.1;">'+x.e+'</span>'+
+      <button
+        class="card swipeFront"
+        style="background:${x.c}"
+        onclick="LE.openCat(${i})">
 
- '<div style="min-width:0;flex:1;">'+
+        <div class="cardMain">
 
- '<div style="'+
- 'font-size:19px;'+
- 'font-weight:750;'+
- 'line-height:1.08;'+
- 'margin-bottom:7px;">'+
- h(x.n)+
- '</div>'+
+          <span class="emoji">${x.e}</span>
 
- '<div style="'+
- 'font-size:14px;'+
- 'color:#65748c;'+
- 'line-height:1.28;">'+
+          <div class="cardText">
 
- x.subs.slice(0,2).map(y=>h(y.n)).join("<br>")+
+            <div class="cardTitle">
+              ${h(x.n)}
+            </div>
 
- '</div>'+
- '</div>'+
- '</div>'+
+            <div class="cardSubs">
+              ${x.subs.slice(0,2).map(y=>h(y.n)).join("<br>")}
+            </div>
 
- '<div style="'+
- 'position:absolute;'+
- 'left:59px;'+
- 'bottom:9px;'+
- 'font-size:13px;'+
- 'color:#65748c;">'+
- x.subs.length+' listes'+
- '</div>'+
+          </div>
 
- '<div style="'+
- 'position:absolute;'+
- 'right:12px;'+
- 'bottom:3px;'+
- 'font-size:28px;'+
- 'color:#65748c;">›</div>'+
+        </div>
 
- '</button>'
+        <div class="cardCount">
+          ${x.subs.length} listes
+        </div>
 
- ).join("");
+        <div class="arrow">›</div>
 
+      </button>
 
- shell(
+    </div>
 
- '<div style="'+
- 'display:flex;'+
- 'align-items:center;'+
- 'justify-content:space-between;'+
- 'margin:3px 5px 18px;">'+
+  `).join("");
 
- '<span style="font-size:28px;">🍋</span>'+
+  shell(`
 
- '<div style="font-size:38px;font-weight:800;">Liste</div>'+
+    <div class="top">
 
- '<button onclick="window.LE.backup()" '+
- 'style="'+btn+
- 'width:46px;'+
- 'height:46px;'+
- 'border-radius:50%;'+
- 'font-size:23px;'+
- 'background:#eef1f5;">⚙️</button>'+
+      <span style="font-size:28px">🍋</span>
 
- '</div>'+
+      <div style="font-size:38px;font-weight:800">
+        Liste
+      </div>
 
- '<input id="q" '+
- 'oninput="window.LE.search(this.value)" '+
- 'placeholder="🔎  Rechercher une liste…" '+
- 'style="'+
- 'width:100%;'+
- 'box-sizing:border-box;'+
- 'border:0;'+
- 'background:#eef1f5;'+
- 'border-radius:24px;'+
- 'padding:13px 18px;'+
- 'font-size:17px;'+
- 'margin-bottom:16px;">'+
+      <button
+        class="round"
+        onclick="LE.backup()">
+        ⚙️
+      </button>
 
- '<div id="cards" style="'+
- 'display:grid;'+
- 'grid-template-columns:1fr 1fr;'+
- 'gap:11px;">'+
- cards+
- '</div>'+
+    </div>
 
- '<button onclick="window.LE.addCat()" '+
- 'style="'+btn+
- 'position:sticky;'+
- 'bottom:18px;'+
- 'display:block;'+
- 'margin:20px auto 0;'+
- 'width:64px;'+
- 'height:64px;'+
- 'border-radius:50%;'+
- 'background:#4d88ef;'+
- 'color:white;'+
- 'font-size:38px;'+
- 'box-shadow:0 7px 18px #9bb9e8;">+</button>'
+    <input
+      id="q"
+      class="search"
+      oninput="LE.search(this.value)"
+      placeholder="🔎  Rechercher une liste…">
 
- );
+    <div id="cards" class="grid">
+      ${cards}
+    </div>
+
+    <div class="hint">
+      Glisse une carte vers la gauche pour la supprimer
+    </div>
+
+    <button
+      class="fab"
+      onclick="LE.addCat()">
+      +
+    </button>
+
+  `);
 }
 
+/* =========================
+   CATÉGORIE
+========================= */
 
 function openCat(i){
 
- cat=i;
- sub=-1;
+  cat=i;
+  sub=-1;
 
- let x=D[i];
+  let x=D[i];
 
- let rows=x.subs.map((y,j)=>
+  let rows=x.subs.map((y,j)=>`
 
- '<button onclick="window.LE.openSub('+j+')" '+
- 'style="'+btn+
- 'width:100%;'+
- 'background:white;'+
- 'border-radius:18px;'+
- 'padding:17px;'+
- 'margin:8px 0;'+
- 'text-align:left;'+
- 'box-shadow:0 1px 8px #ccd3dd55;'+
- 'color:#13213b;">'+
+    <div class="rowSwipe">
 
- '<b style="font-size:18px;">'+h(y.n)+'</b>'+
+      <button
+        class="deleteBehind"
+        onclick="event.stopPropagation();LE.deleteSub(${j})">
+        Supprimer
+      </button>
 
- '<span style="float:right;font-size:25px;">›</span>'+
+      <div
+        class="row swipeFront"
+        onclick="LE.openSub(${j})">
 
- '<div style="color:#718096;margin-top:4px;">'+
- y.items.length+' éléments'+
- '</div>'+
+        <div class="rowTitle">
+          ${h(y.n)}
+        </div>
 
- '</button>'
+        <div class="rowMeta">
+          ${y.items.length} éléments
+        </div>
 
- ).join("");
+        <button
+          class="small editSub"
+          onclick="event.stopPropagation();LE.editSub(${j})">
+          ✏️
+        </button>
 
+        <button class="go">
+          ›
+        </button>
 
- shell(
+      </div>
 
- '<button onclick="window.LE.home()" '+
- 'style="'+btn+
- 'background:none;'+
- 'color:#4d88ef;'+
- 'font-size:17px;'+
- 'padding:5px;">‹ Accueil</button>'+
+    </div>
 
- '<h2 style="font-size:30px;margin:12px 0 18px;">'+
- x.e+' '+h(x.n)+
- '</h2>'+
+  `).join("");
 
- rows+
+  shell(`
 
- '<button onclick="window.LE.addSub()" '+
- 'style="'+btn+
- 'display:block;'+
- 'margin:22px auto;'+
- 'width:68px;'+
- 'height:68px;'+
- 'border-radius:50%;'+
- 'background:#4d88ef;'+
- 'color:white;'+
- 'font-size:40px;">+</button>'
+    <button
+      class="back"
+      onclick="LE.home()">
+      ‹ Accueil
+    </button>
 
- );
+    <div style="
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px">
+
+      <h2 style="font-size:28px">
+        ${x.e} ${h(x.n)}
+      </h2>
+
+      <button
+        class="small"
+        onclick="LE.editCat(${i})">
+        ✏️ Modifier
+      </button>
+
+    </div>
+
+    ${
+      rows ||
+      '<div class="empty">Aucune sous-liste.<br>Appuie sur + pour en créer une.</div>'
+    }
+
+    <div class="hint">
+      Glisse une sous-liste vers la gauche pour la supprimer
+    </div>
+
+    <button
+      class="fab"
+      onclick="LE.addSub()">
+      +
+    </button>
+
+  `);
 }
 
+/* =========================
+   CONTENU D'UNE LISTE
+========================= */
 
 function openSub(j){
 
- sub=j;
+  sub=j;
 
- let x=D[cat];
- let y=x.subs[j];
+  let x=D[cat];
+  let y=x.subs[j];
 
- let rows=y.items.map((z,k)=>
+  let rows=y.items.map((z,k)=>`
 
- '<div style="'+
- 'display:flex;'+
- 'align-items:center;'+
- 'gap:12px;'+
- 'background:white;'+
- 'border-radius:16px;'+
- 'padding:14px;'+
- 'margin:8px 0;'+
- 'box-shadow:0 1px 7px #ccd3dd44;">'+
+    <div class="item">
 
- '<input type="checkbox" '+
- (z.d?"checked":"")+
- ' onchange="window.LE.toggle('+k+')" '+
- 'style="width:24px;height:24px;">'+
+      <input
+        type="checkbox"
+        ${z.d ? "checked" : ""}
+        onchange="LE.toggle(${k})"
+        style="width:24px;height:24px">
 
- '<div style="'+
- 'flex:1;'+
- 'font-size:17px;'+
- (z.d?"text-decoration:line-through;opacity:.5;":"")+
- '">'+
- h(z.t)+
- '</div>'+
+      <div
+        class="itemText"
+        style="${
+          z.d
+          ? "text-decoration:line-through;opacity:.5"
+          : ""
+        }">
 
- '<button onclick="window.LE.del('+k+')" '+
- 'style="'+btn+
- 'background:#eef2f7;'+
- 'border-radius:9px;'+
- 'padding:7px;">🗑️</button>'+
+        ${h(z.t)}
 
- '</div>'
+      </div>
 
- ).join("");
+      <button
+        class="small"
+        onclick="LE.editItem(${k})">
+        ✏️
+      </button>
 
+      <button
+        class="small"
+        onclick="LE.deleteItem(${k})">
+        🗑️
+      </button>
 
- shell(
+    </div>
 
- '<button onclick="window.LE.openCat('+cat+')" '+
- 'style="'+btn+
- 'background:none;'+
- 'color:#4d88ef;'+
- 'font-size:17px;'+
- 'padding:5px;">‹ '+h(x.n)+'</button>'+
+  `).join("");
 
- '<h2 style="font-size:29px;margin:12px 0 18px;">'+
- h(y.n)+
- '</h2>'+
+  shell(`
 
- (rows||
- '<div style="'+
- 'text-align:center;'+
- 'color:#718096;'+
- 'padding:55px 10px;">'+
- 'Cette liste est vide.<br>Appuie sur + pour ajouter.'+
- '</div>')+
+    <button
+      class="back"
+      onclick="LE.openCat(${cat})">
+      ‹ ${h(x.n)}
+    </button>
 
- '<button onclick="window.LE.addItem()" '+
- 'style="'+btn+
- 'display:block;'+
- 'margin:22px auto;'+
- 'width:68px;'+
- 'height:68px;'+
- 'border-radius:50%;'+
- 'background:#4d88ef;'+
- 'color:white;'+
- 'font-size:40px;">+</button>'
+    <div style="
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px">
 
- );
+      <h2 style="font-size:28px">
+        ${h(y.n)}
+      </h2>
+
+      <button
+        class="small"
+        onclick="LE.editSub(${j})">
+        ✏️ Modifier
+      </button>
+
+    </div>
+
+    ${
+      rows ||
+      '<div class="empty">Cette liste est vide.<br>Appuie sur + pour ajouter.</div>'
+    }
+
+    <button
+      class="fab"
+      onclick="LE.addItem()">
+      +
+    </button>
+
+  `);
 }
 
+/* =========================
+   GLISSEMENT IPHONE
+========================= */
 
-function ask(msg,def=""){
- return prompt(msg,def);
+function activateSwipes(){
+
+  document
+    .querySelectorAll(".swipe,.rowSwipe")
+    .forEach(wrapper=>{
+
+      let front=wrapper.querySelector(".swipeFront");
+
+      if(!front)return;
+
+      let startX=0;
+      let startY=0;
+      let moveX=0;
+
+      front.addEventListener(
+        "touchstart",
+        e=>{
+
+          let t=e.touches[0];
+
+          startX=t.clientX;
+          startY=t.clientY;
+          moveX=0;
+
+        },
+        {passive:true}
+      );
+
+      front.addEventListener(
+        "touchmove",
+        e=>{
+
+          let t=e.touches[0];
+
+          let dx=t.clientX-startX;
+          let dy=t.clientY-startY;
+
+          if(Math.abs(dx)>Math.abs(dy)){
+
+            moveX=Math.max(-90,Math.min(0,dx));
+
+            front.style.transition="none";
+
+            front.style.transform=
+              "translateX("+moveX+"px)";
+          }
+
+        },
+        {passive:true}
+      );
+
+      front.addEventListener(
+        "touchend",
+        ()=>{
+
+          front.style.transition=
+            "transform .18s ease";
+
+          if(moveX < -40){
+
+            front.style.transform=
+              "translateX(-90px)";
+
+          }else{
+
+            front.style.transform=
+              "translateX(0)";
+
+          }
+
+        }
+      );
+
+    });
 }
 
+/* =========================
+   ACTIONS
+========================= */
 
 window.LE={
 
- home,
- openCat,
- openSub,
+  home,
+  openCat,
+  openSub,
 
- addCat(){
+  /* CATÉGORIES */
 
-  let n=ask("Nom de la catégorie ?");
-  if(!n)return;
+  addCat(){
 
-  let e=ask("Choisis un symbole ou emoji :","✨")||"✨";
+    let n=ask("Nom de la catégorie ?");
 
-  D.push({
-   n,
-   e,
-   c:[
-    "#d8edff",
-    "#dcf5e3",
-    "#ffe2e9",
-    "#fff0b9",
-    "#e7ddff",
-    "#ffe8c9"
-   ][D.length%6],
-   subs:[]
-  });
+    if(!n)return;
 
-  save();
-  home();
- },
+    let e=
+      ask("Choisis un symbole ou emoji :","✨")
+      || "✨";
 
- addSub(){
+    let colors=[
+      "#d8edff",
+      "#dcf5e3",
+      "#ffe2e9",
+      "#fff0b9",
+      "#e7ddff",
+      "#ffe8c9",
+      "#d8f3f5"
+    ];
 
-  let n=ask("Nom de la sous-liste ?");
-  if(!n)return;
+    D.push({
+      n:n.trim(),
+      e:e,
+      c:colors[D.length % colors.length],
+      subs:[]
+    });
 
-  D[cat].subs.push({
-   n,
-   items:[]
-  });
+    save();
+    home();
+  },
 
-  save();
-  openCat(cat);
- },
+  editCat(i){
 
- addItem(){
+    let x=D[i];
 
-  let t=ask("Que veux-tu ajouter ?");
-  if(!t)return;
+    let n=
+      ask("Nouveau nom de la catégorie :",x.n);
 
-  D[cat].subs[sub].items.push({
-   t,
-   d:false
-  });
+    if(n===null || !n.trim())return;
 
-  save();
-  openSub(sub);
- },
+    let e=
+      ask("Emoji ou symbole :",x.e);
 
- toggle(k){
+    if(e===null)return;
 
-  D[cat].subs[sub].items[k].d=
-  !D[cat].subs[sub].items[k].d;
+    x.n=n.trim();
+    x.e=e.trim() || x.e;
 
-  save();
-  openSub(sub);
- },
+    save();
+    openCat(i);
+  },
 
- del(k){
+  deleteCat(i){
 
-  if(confirm("Supprimer cet élément ?")){
+    let x=D[i];
 
-   D[cat].subs[sub].items.splice(k,1);
+    if(
+      confirm(
+        "Supprimer la catégorie « "+
+        x.n+
+        " » et TOUTES les listes qu'elle contient ?"
+      )
+    ){
 
-   save();
-   openSub(sub);
+      D.splice(i,1);
+
+      save();
+      home();
+    }
+  },
+
+  /* SOUS-LISTES */
+
+  addSub(){
+
+    let n=ask("Nom de la sous-liste ?");
+
+    if(!n)return;
+
+    D[cat].subs.push({
+      n:n.trim(),
+      items:[]
+    });
+
+    save();
+    openCat(cat);
+  },
+
+  editSub(j){
+
+    let y=D[cat].subs[j];
+
+    let n=
+      ask("Nouveau nom de la sous-liste :",y.n);
+
+    if(n===null || !n.trim())return;
+
+    y.n=n.trim();
+
+    save();
+
+    if(sub===j){
+      openSub(j);
+    }else{
+      openCat(cat);
+    }
+  },
+
+  deleteSub(j){
+
+    let y=D[cat].subs[j];
+
+    if(
+      confirm(
+        "Supprimer « "+
+        y.n+
+        " » et tous les éléments qu'elle contient ?"
+      )
+    ){
+
+      D[cat].subs.splice(j,1);
+
+      save();
+      openCat(cat);
+    }
+  },
+
+  /* ÉLÉMENTS */
+
+  addItem(){
+
+    let t=ask("Que veux-tu ajouter ?");
+
+    if(!t)return;
+
+    D[cat].subs[sub].items.push({
+      t:t.trim(),
+      d:false
+    });
+
+    save();
+    openSub(sub);
+  },
+
+  editItem(k){
+
+    let z=D[cat].subs[sub].items[k];
+
+    let t=
+      ask("Modifier le texte :",z.t);
+
+    if(t===null || !t.trim())return;
+
+    z.t=t.trim();
+
+    save();
+    openSub(sub);
+  },
+
+  toggle(k){
+
+    let z=D[cat].subs[sub].items[k];
+
+    z.d=!z.d;
+
+    save();
+    openSub(sub);
+  },
+
+  deleteItem(k){
+
+    if(confirm("Supprimer cet élément ?")){
+
+      D[cat].subs[sub].items.splice(k,1);
+
+      save();
+      openSub(sub);
+    }
+  },
+
+  /* RECHERCHE */
+
+  search(q){
+
+    q=q.toLowerCase().trim();
+
+    let cards=
+      document.querySelectorAll("#cards .swipe");
+
+    cards.forEach((card,i)=>{
+
+      let x=D[i];
+
+      let text=[
+        x.n,
+        ...x.subs.map(s=>s.n)
+      ]
+      .join(" ")
+      .toLowerCase();
+
+      card.style.display=
+        text.includes(q)
+        ? ""
+        : "none";
+
+    });
+  },
+
+  /* SAUVEGARDE */
+
+  backup(){
+
+    let a=document.createElement("a");
+
+    let blob=
+      new Blob(
+        [JSON.stringify(D,null,2)],
+        {type:"application/json"}
+      );
+
+    a.href=
+      URL.createObjectURL(blob);
+
+    a.download=
+      "sauvegarde-liste.json";
+
+    a.click();
+
+    setTimeout(
+      ()=>URL.revokeObjectURL(a.href),
+      1000
+    );
   }
- },
-
- search(q){
-
-  q=q.toLowerCase();
-
-  [...document.getElementById("cards").children]
-  .forEach((b,i)=>
-   b.style.display=
-   D[i].n.toLowerCase().includes(q)?"":"none"
-  );
- },
-
- backup(){
-
-  let a=document.createElement("a");
-
-  a.href=URL.createObjectURL(
-   new Blob(
-    [JSON.stringify(D,null,2)],
-    {type:"application/json"}
-   )
-  );
-
-  a.download="sauvegarde-liste.json";
-
-  a.click();
- }
 
 };
-
 
 home();
 
